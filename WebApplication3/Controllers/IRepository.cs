@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace WebApplication3.Controllers
 {
-	interface IRepository <T>
+	public interface IRepository <T>
 	{
 		T GetById(int id);
 		List<T> GetList();

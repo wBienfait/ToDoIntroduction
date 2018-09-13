@@ -27,6 +27,14 @@ namespace WebApplication3.Models
 			Description = newDescription;
 		}
 
+		public void SetId(int id)
+		{
+			if(Id == -1)
+			{
+				Id = id;
+			}
+		}
+
 		private Card(int id, string description, CardState state)
 		{
 			Id = id;
@@ -41,7 +49,7 @@ namespace WebApplication3.Models
 
 		public static Card Create(string description, CardState state)
 		{
-			return new Card(0, description, state);
+			return new Card(-1, description, state);
 		}
 	}
 }

@@ -25,6 +25,7 @@ namespace WebApplication3.Controllers
 
 		public void Create(T entity)
 		{
+			entity.SetId(GetNewId());
 			if (!_context.EntityList().Contains(entity))
 			{
 				_context.EntityList().Add(entity);
@@ -60,6 +61,10 @@ namespace WebApplication3.Controllers
 		public Repository(IContext<T> context)
 		{
 			_context = context;
+			//still not sure where to hardcode that part.
+			Create(Card.Create("WebAPI", CardState.Doing) as T);
+			Create(Card.Create("Angular", CardState.ToDo) as T);
+			Create(Card.Create("DB", CardState.Backlog) as T);
 		}
 	}
 }

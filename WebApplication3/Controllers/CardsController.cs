@@ -10,33 +10,29 @@ namespace WebApplication3.Controllers
 {
     public class CardsController : ApiController
     {
-		Repository<Card> _repository;
+		private readonly IRepository<Card> _repository;
 
-		/// <summary>
-		/// Placeholder to initialize hardcoded data
-		/// </summary>
-		private void InitializeCards()
+		public CardsController(IRepository<Card> cardRepository)
 		{
-			_repository.Create(Card.Create(_repository.GetNewId(), "WebAPI", CardState.Doing));
-			_repository.Create(Card.Create(_repository.GetNewId(), "Angular", CardState.ToDo));
-			_repository.Create(Card.Create(_repository.GetNewId(), "DB", CardState.Backlog));
+			_repository = cardRepository;
 		}
+
+		[HttpGet]
 		public IEnumerable<Card> GetAllCards()
 		{
-			if (_repository.GetList().Count == 0) InitializeCards();
 			return _repository.GetList();
 		}
 
-		public IHttpActionResult GetCard(int id)
+		[HttpGet]
+		public IHttpActionResult GetCardById(int id)
 		{
-			if (_repository.GetList().Count == 0) InitializeCards();
 			var card = _repository.GetById(id);
-			//var card = _cards.FirstOrDefault((p) => p.Id == id);
 			if (card == null)
 			{
 				return NotFound();
 			}
 			return Ok(card);
 		}
+
 	}
 }
