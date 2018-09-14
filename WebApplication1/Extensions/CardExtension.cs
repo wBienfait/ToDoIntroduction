@@ -17,7 +17,7 @@ namespace WebApplication1.Extensions
             };
         }
 
-        public static IEnumerable<CardViewModel> ToViewModel(this IEnumerable<Card> cards)
+		public static IEnumerable<CardViewModel> ToViewModel(this IEnumerable<Card> cards)
         {
             return cards.Select(ToViewModel);
         }

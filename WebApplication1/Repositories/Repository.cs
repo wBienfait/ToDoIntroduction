@@ -6,7 +6,17 @@ namespace WebApplication1.Repositories
 {
     public class Repository<T> : IRepository<T>
     {
-        public Task<IEnumerable<T>> GetAllAsync()
+		public void Create(T entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(T entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<T>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -15,5 +25,10 @@ namespace WebApplication1.Repositories
         {
             throw new NotImplementedException();
         }
-    }
+
+		public void Update(T entity)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

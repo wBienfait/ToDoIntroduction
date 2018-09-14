@@ -17,7 +17,29 @@ namespace WebApplication1.Controllers
             _cardRepository = cardRepository;
         }
 
-        [HttpGet]
+		[Route("api/cards/create")]
+		[HttpPost]
+		public async Task<IHttpActionResult> CreateCard(Card card)
+		{
+			_cardRepository.Create(card);
+			var newCard = await _cardRepository.GetByIdAsync(card.Id);
+			if(newCard != null) return Ok();
+			return NotFound();
+		}
+
+		[HttpPut]
+		public void UpdateCard(Card card)
+		{
+			throw new NotImplementedException();
+		}
+
+		[HttpDelete]
+		public void DeleteCard(Card card)
+		{
+			throw new NotImplementedException();
+		}
+
+		[HttpGet]
         public async Task<IHttpActionResult> GetAllCards()
         {
             var results = await _cardRepository.GetAllAsync();
@@ -35,7 +57,12 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetCardById(int id)
         {
-            throw new NotImplementedException();
+			var result = await _cardRepository.GetByIdAsync(id);
+			if(result != null)
+			{
+				return Ok(result.ToViewModel());
+			}
+			return NotFound();
         }
     }
 }

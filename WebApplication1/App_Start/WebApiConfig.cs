@@ -16,6 +16,10 @@ namespace WebApplication1
                 "api/{controller}/{id}",
                 new {id = RouteParameter.Optional}
             );
-        }
+			config.Routes.MapHttpRoute(
+				"ActionApi",
+				"api/{controller}/{action}/{id}"
+			);
+		}
     }
 }
