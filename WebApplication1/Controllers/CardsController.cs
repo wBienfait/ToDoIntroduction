@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using WebApplication1.Extensions;
 using WebApplication1.Repositories;
 using WebApplication1.Repositories.Models;
+using WebApplication1.ViewModels;
+using WebApplication1.Extensions;
+using WebApplication1.ModelMapper;
 
 namespace WebApplication1.Controllers
 {
@@ -19,24 +21,35 @@ namespace WebApplication1.Controllers
 
 		[Route("api/cards/create")]
 		[HttpPost]
-		public async Task<IHttpActionResult> CreateCard(Card card)
+		public async Task<IHttpActionResult> CreateCard([FromBody]CardViewModel card)
 		{
-			_cardRepository.Create(card);
+			//_cardRepository.Create(card.ToModel());
+			_cardRepository.Create(ModelMapper.ModelMapper.ToCard(card));
 			var newCard = await _cardRepository.GetByIdAsync(card.Id);
 			if(newCard != null) return Ok();
 			return NotFound();
 		}
 
+		[Route("api/cards/update")]
 		[HttpPut]
-		public void UpdateCard(Card card)
+		public async Task<IHttpActionResult> UpdateCard([FromBody]CardViewModel card)
 		{
-			throw new NotImplementedException();
+			//_cardRepository.Update(card.ToModel());
+			_cardRepository.Update(ModelMapper.ModelMapper.ToCard(card));
+			var newCard = await _cardRepository.GetByIdAsync(card.Id);
+			if (newCard != null) return Ok(newCard);
+			return NotFound();
 		}
 
+		[Route("api/cards/delete")]
 		[HttpDelete]
-		public void DeleteCard(Card card)
+		public async Task<IHttpActionResult> DeleteCard([FromBody]CardViewModel card)
 		{
-			throw new NotImplementedException();
+			//_cardRepository.Delete(card.ToModel());
+			_cardRepository.Create(ModelMapper.ModelMapper.ToCard(card));
+			var newCard = await _cardRepository.GetByIdAsync(card.Id);
+			if (newCard == null) return Ok("Card deleted");
+			else return Ok("Card not deleted");
 		}
 
 		[HttpGet]

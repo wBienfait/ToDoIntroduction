@@ -139,3 +139,8 @@ C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\obj\Debug\WebAppl
 C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\obj\Debug\WebApplication1.csproj.CopyComplete
 C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\bin\AutoMapper.dll
+C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\bin\System.ValueTuple.dll
+C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\bin\AutoMapper.pdb
+C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\bin\AutoMapper.xml
+C:\Users\William\source\repos\ToDoIntroduction\WebApplication1\bin\System.ValueTuple.xml

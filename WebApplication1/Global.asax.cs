@@ -9,6 +9,7 @@ namespace WebApplication1
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configure(WebApiDependenciesConfig.Register);
+			GlobalConfiguration.Configure(MappingConfig.Register);
         }
     }
 }

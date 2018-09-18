@@ -41,9 +41,13 @@ namespace WebApplication1.Repositories
 
 		public void Delete(Card entity)
 		{
-			if (_cards.Contains(entity))
+			for (int i = 0; i < _cards.Count; i++)
 			{
-				_cards.Remove(entity);
+				if (_cards[i].Id == entity.Id)
+				{
+					Card deleted = _cards[i];
+					_cards.Remove(deleted);
+				}
 			}
 		}
 
