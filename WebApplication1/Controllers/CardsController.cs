@@ -5,26 +5,27 @@ using System.Web.Http;
 using WebApplication1.Repositories;
 using WebApplication1.Repositories.Models;
 using WebApplication1.ViewModels;
-using WebApplication1.Extensions;
 using WebApplication1.ModelMapper;
+using AutoMapper;
 
 namespace WebApplication1.Controllers
 {
     public class CardsController : ApiController
     {
         private readonly IRepository<Card> _cardRepository;
+		private readonly IMapper _mapper;
 
-        public CardsController(IRepository<Card> cardRepository)
+        public CardsController(IRepository<Card> cardRepository, IModelMapper mapper)
         {
             _cardRepository = cardRepository;
+			_mapper = mapper.Mapper();
         }
 
 		[Route("api/cards/create")]
 		[HttpPost]
 		public async Task<IHttpActionResult> CreateCard([FromBody]CardViewModel card)
 		{
-			//_cardRepository.Create(card.ToModel());
-			_cardRepository.Create(ModelMapper.ModelMapper.ToCard(card));
+			_cardRepository.Create(_mapper.Map<Card>(card));
 			var newCard = await _cardRepository.GetByIdAsync(card.Id);
 			if(newCard != null) return Ok();
 			return NotFound();
@@ -34,8 +35,7 @@ namespace WebApplication1.Controllers
 		[HttpPut]
 		public async Task<IHttpActionResult> UpdateCard([FromBody]CardViewModel card)
 		{
-			//_cardRepository.Update(card.ToModel());
-			_cardRepository.Update(ModelMapper.ModelMapper.ToCard(card));
+			_cardRepository.Update(_mapper.Map<Card>(card));
 			var newCard = await _cardRepository.GetByIdAsync(card.Id);
 			if (newCard != null) return Ok(newCard);
 			return NotFound();
@@ -45,8 +45,7 @@ namespace WebApplication1.Controllers
 		[HttpDelete]
 		public async Task<IHttpActionResult> DeleteCard([FromBody]CardViewModel card)
 		{
-			//_cardRepository.Delete(card.ToModel());
-			_cardRepository.Create(ModelMapper.ModelMapper.ToCard(card));
+			_cardRepository.Create(_mapper.Map<Card>(card));
 			var newCard = await _cardRepository.GetByIdAsync(card.Id);
 			if (newCard == null) return Ok("Card deleted");
 			else return Ok("Card not deleted");
@@ -61,7 +60,8 @@ namespace WebApplication1.Controllers
                 //soit automapper (nuget + doc internet) (tres populaire)
                 //soit mapping manuel (conversion manuelle avec class explicite mapper) => choix perso
                 //soit méthode d'extension (.ToDTO()) => appliqué ici
-                return Ok(results.ToViewModel());
+                //return Ok(results.ToViewModel());
+				return Ok(_mapper.Map<CardViewModel>(results));
             }
 
             return NotFound();
@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
 			var result = await _cardRepository.GetByIdAsync(id);
 			if(result != null)
 			{
-				return Ok(result.ToViewModel());
+				return Ok(_mapper.Map<CardViewModel>(result));
 			}
 			return NotFound();
         }

@@ -4,6 +4,7 @@ using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.WebApi;
 using WebApplication1.Repositories;
 using WebApplication1.Repositories.Models;
+using WebApplication1.ModelMapper;
 
 namespace WebApplication1
 {
@@ -16,6 +17,7 @@ namespace WebApplication1
 			Container container = new Container();
 			container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 			container.Register<IRepository<Card>, CardRepository>();
+			container.Register<IModelMapper, ModelMapper>();
 			container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 			container.Verify();
 			GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

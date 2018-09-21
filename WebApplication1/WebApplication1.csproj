@@ -116,6 +116,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelMapper\IModelMapper.cs" />
+    <Compile Include="ModelMapper\MapperProfile.cs" />
     <Compile Include="ModelMapper\ModelMapper.cs" />
     <Compile Include="Repositories\Models\Card.cs" />
     <Compile Include="Repositories\Models\CardState.cs" />

@@ -1,34 +1,23 @@
-﻿using AutoMapper;
-using WebApplication1.Repositories.Models;
-using WebApplication1.ViewModels;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using AutoMapper;
 
 namespace WebApplication1.ModelMapper
 {
-	public static class ModelMapper
+	public class ModelMapper : IModelMapper
 	{
-		public static Card ToCard(CardViewModel cardVM)
+		private IMapper _mapper;
+		public ModelMapper()
 		{
-			Mapper.Initialize(cfg => cfg.CreateMap<Card, CardViewModel>());
-			return Mapper.Map<Card>(cardVM);
+			var config = new MapperConfiguration(cfg => { cfg.AddProfile<MapperProfile>(); });
+			_mapper = config.CreateMapper();
 		}
 
-		public static CardState ToCardState(CardStateDto stateDto)
+		public IMapper Mapper()
 		{
-			Mapper.Initialize(cfg => cfg.CreateMap<CardState, CardStateDto>());
-			return Mapper.Map<CardState>(stateDto);
-		}
-
-		public static CardViewModel ToCardVM(Card card)
-		{
-			Mapper.Initialize(cfg => cfg.CreateMap<Card, CardViewModel>());
-			return AutoMapper.Mapper.Map<CardViewModel>(card);
-		}
-
-		public static CardStateDto ToCardStateDto(CardState state)
-		{
-			Mapper.Initialize(cfg => cfg.CreateMap<CardState, CardStateDto>());
-			return Mapper.Map<CardStateDto>(state);
+			return _mapper;
 		}
 	}
 }
